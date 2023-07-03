@@ -7,7 +7,7 @@ import "dotenv/config";
 console.log(process.env.UNIVERSE_DOMAIN);
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-// const KEY_FILE = path.join(process.cwd(), "client_secret.json");
+const KEY_FILE = path.join(process.cwd(), "client_secret.json");
 
 /**
  *
@@ -17,23 +17,23 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 async function authorize() {
   try {
     return new google.auth.GoogleAuth({
-      // .env대신 client_secret.json 파일 사용 하고 싶다면 아래 주석 해제
-      // keyFile: KEY_FILE, 
+      keyFile: KEY_FILE,
       scopes: SCOPES,
-      credentials: {
-        type: process.env["TYPE"],
-        project_id: process.env["PROJECT_ID"],
-        private_key_id: process.env["PRIVATE_KEY_ID"],
-        private_key: process.env["PRIVATE_KEY"],
-        client_email: process.env["CLIENT_EMAIL"],
-        client_id: process.env["CLIENT_ID"],
-        auth_uri: process.env["AUTH_URI"],
-        token_uri: process.env["TOKEN_URI"],
-        auth_provider_x_509_cert_url:
-          process.env["AUTH-PROVIDER-X-509-CERT-URL"],
-        client_x_509_cert_url: process.env["CLIENT-X-509-CERT-URL"],
-        universe_domain: process.env["UNIVERSE_DOMAIN"],
-      },
+      // client_secret.json대신 .env 사용 하고 싶다면 아래 주석 해제
+      // credentials: {
+      //   type: process.env["TYPE"],
+      //   project_id: process.env["PROJECT_ID"],
+      //   private_key_id: process.env["PRIVATE_KEY_ID"],
+      //   private_key: process.env["PRIVATE_KEY"],
+      //   client_email: process.env["CLIENT_EMAIL"],
+      //   client_id: process.env["CLIENT_ID"],
+      //   auth_uri: process.env["AUTH_URI"],
+      //   token_uri: process.env["TOKEN_URI"],
+      //   auth_provider_x_509_cert_url:
+      //     process.env["AUTH-PROVIDER-X-509-CERT-URL"],
+      //   client_x_509_cert_url: process.env["CLIENT-X-509-CERT-URL"],
+      //   universe_domain: process.env["UNIVERSE_DOMAIN"],
+      // },
     });
   } catch (err) {
     return null;
