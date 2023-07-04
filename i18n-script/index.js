@@ -1,10 +1,8 @@
-import fs from "fs/promises";
-import path from "path";
-import process from "process";
-import { google } from "googleapis";
-import "dotenv/config";
-
-console.log(process.env.UNIVERSE_DOMAIN);
+const fs = require("fs/promises");
+const path = require("path");
+const process = require("process");
+const { google } = require("googleapis");
+require("dotenv/config");
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 const KEY_FILE = path.join(process.cwd(), "client_secret.json");
@@ -55,8 +53,14 @@ async function listTranslate(auth) {
     return;
   }
 
-  const json = createTranslateJson(rows);
-  await fs.writeFile("translate.json", JSON.stringify(json));
+  const json = createTranslateJson(rows);    
+  await fs.mkdir(path.join(process.cwd(), "src/translate_json"), { recursive: true });
+  await fs.writeFile(path.join(process.cwd(), "src/translate_json/ko.json"), JSON.stringify(json.ko));  
+  console.log("Successfully created translate_ko.json");
+  await fs.writeFile(path.join(process.cwd(), "src/translate_json/en.json"), JSON.stringify(json.en));
+  console.log("Successfully created translate_en.json");
+  await fs.writeFile(path.join(process.cwd(), "src/translate_json/jp.json"), JSON.stringify(json.jp));
+  console.log("Successfully created translate_jp.json");
 }
 
 /**

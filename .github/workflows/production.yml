@@ -20,15 +20,32 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
       - run: npm ci
       - name: create client_secret.json
         env:
           GOOGLE_SHEET_CLIENT_SECRET: ${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}
         run: |
-          echo '${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}' >> client_secret.json
-      - name: cat client_secret.json
-        run: cat client_secret.json
+          echo '${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}' >> ./client_secret.json
       - name: create translate.json file
-        run: node ./index.js
-      - name: cat translate.json
-        run: cat translate.json
+        run: node ./i18n-script/index.js
+      - name: Npm Build
+        run: npm run build
+        env:
+          CI: false
+      - name: Deploy to IWINV
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}                    
+          source: "build"
+          strip_components: 1
+          target: "/var/www/html/sample/build"
