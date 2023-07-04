@@ -22,8 +22,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - name: create client_secret.json
+        env:
+          GOOGLE_SHEET_CLIENT_SECRET: ${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}
         run: |
-          echo "${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}" > client_secret.json
+          echo '${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}' >> client_secret.json
       - name: cat client_secret.json
         run: cat client_secret.json
       - name: create translate.json file
