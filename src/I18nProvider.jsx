@@ -1,8 +1,8 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
-import messagesKo from "./translate_json/ko.json";
-import messagesEn from "./translate_json/en.json";
-import messagesJp from "./translate_json/jp.json";
+import messagesKo from "./i18n/ko.json";
+import messagesEn from "./i18n/en.json";
+import messagesJp from "./i18n/jp.json";
 
 function flattenMessages(nestedMessages, prefix = '') {
   return Object.keys(nestedMessages).reduce((messages, key) => {

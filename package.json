@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "i18n:create": "node ./i18n-script/createFromSheet.js",
+    "i18n:upload": "node ./i18n-script/upload.js"
   },
   "eslintConfig": {
     "extends": [

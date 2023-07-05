@@ -34,8 +34,8 @@ jobs:
           GOOGLE_SHEET_CLIENT_SECRET: ${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}
         run: |
           echo '${{ secrets.GOOGLE_SHEET_CLIENT_SECRET }}' >> ./client_secret.json
-      - name: create translate.json file
-        run: node ./i18n-script/index.js
+      - name: create i18n json files from sheet
+        run: npm run i18n:create
       - name: Npm Build
         run: npm run build
         env:
@@ -45,7 +45,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}                    
+          password: ${{ secrets.SERVER_PASSWORD }}
           source: "build"
           strip_components: 1
           target: "/var/www/html/sample/build"

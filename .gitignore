@@ -26,4 +26,5 @@ yarn-error.log*
 client_secret.json
 translate.json
 
-src/translate_json
+src/i18n/*
+!src/i18n/newKeys.js
