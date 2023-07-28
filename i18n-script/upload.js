@@ -15,11 +15,7 @@ async function uploadTranslate(auth) {
     range: "translate!A2:E",
   });
 
-  const rows = res.data.values;
-  if (!rows || rows.length === 0) {
-    console.log("No data found.");
-    return;
-  }
+  const rows = res.data.values ?? [];
 
   function flattenMessages(nestedMessages, prefix = "") {
     return Object.keys(nestedMessages).reduce((messages, key) => {
