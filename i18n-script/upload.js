@@ -1,8 +1,7 @@
 const { google } = require("googleapis");
 const { authorize } = require("./authorize");
 require("dotenv/config");
-// const newKeys = require("../src/i18n/newKeys");
-const newKeys = require("./test");
+const newKeys = require("../src/i18n/newKeys");
 
 /**
  * @param {google.auth.GoogleAuth} auth The authenticated Google OAuth client.
@@ -54,7 +53,7 @@ async function uploadTranslate(auth) {
     return;
   }
 
-  const result = await sheets.spreadsheets.values.update({
+  const result = await sheets.spreadsheets.values.append({
     spreadsheetId: "1MPP3fGsdRdrziT4g4SR97bIpP0gNlOKTosjmVeOU4k8",
     range: "from_dev!A2:E",
     valueInputOption: "USER_ENTERED",
