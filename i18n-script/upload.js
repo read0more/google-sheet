@@ -56,7 +56,7 @@ async function uploadTranslate(auth) {
   const result = await sheets.spreadsheets.values.append({
     spreadsheetId: "1MPP3fGsdRdrziT4g4SR97bIpP0gNlOKTosjmVeOU4k8",
     range: "from_dev!A2:E",
-    valueInputOption: "USER_ENTERED",
+    valueInputOption: "RAW",
     resource: {
       values: newRows,
     },
